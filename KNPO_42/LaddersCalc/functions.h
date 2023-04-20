@@ -10,6 +10,7 @@ class Functions
 public:
     int unpackIntValue(QFile& input, QString outputFileName);
     int countOfLadders(int prevStep, int cubeCount);
+    void outputIntValue(QString outputFileName, int value);
 };
 
 /*!
@@ -98,6 +99,21 @@ int Functions::countOfLadders(int prevStep, int cubeCount)
   }
 
   return count; // вернуть значение количество лесенок
+}
+
+/*!
+* Выводит число int в txt файл.
+*\param[in] outputFileName – Путь или имя выходного файла.
+*\param[in] value – Выходное число int.
+*/
+void Functions::outputIntValue(QString outputFileName, int value)
+{
+    QFile output(outputFileName); // создание или чтение существующего файла
+    output.open(QIODevice::WriteOnly | QIODevice::Text);
+
+    QTextStream out(&output); // создание объекта QTextStream для записи данных в выходной файл
+    out << "" << value << endl; // запись результата в файл
+    output.close();
 }
 
 #endif // FUNCTIONS_H
