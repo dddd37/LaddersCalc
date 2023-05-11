@@ -4,7 +4,7 @@
 #include <QFile>
 #include <QString>
 #include <QTextStream>
-
+#include <QTextCodec>
 class Functions
 {
 public:
