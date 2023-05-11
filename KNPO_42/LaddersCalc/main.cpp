@@ -11,12 +11,7 @@ int main(const int argc, char **argv)
 {
     QTextStream outStream(stdout);
     outStream.setCodec(QTextCodec::codecForName("cp866"));
-//-------------путь к входному файлу--------------
-    QString inputFileName = argv[1];
-    QFile inputFile(inputFileName);
-//-------------путь к выходному файлу-------------
-    QString outputFileName = argv[2];
-    QFile outputFile(outputFileName);
+
 //-------------проверка правильности запуска программы-----------------
    if (argc != 3) // если количество аргументов в командной строке не 3
    {
@@ -24,6 +19,18 @@ int main(const int argc, char **argv)
        outStream << QString("Попробуйте ещё раз! Правильный шаблон запуска: LaddersCalc.exe ./input.txt ./output.txt\nТакже можно указать полный путь к файлам.") << flush;
        return 0;
    }
+   if (argv[1] == NULL || argv[2] == NULL)
+   {
+       // выдать ошибку в консоль
+       outStream << QString("Попробуйте ещё раз! Правильный шаблон запуска: LaddersCalc.exe ./input.txt ./output.txt\nТакже можно указать полный путь к файлам.") << flush;
+       return 0;
+   }
+//-------------путь к входному файлу--------------
+    QString inputFileName = argv[1];
+    QFile inputFile(inputFileName);
+//-------------путь к выходному файлу-------------
+    QString outputFileName = argv[2];
+    QFile outputFile(outputFileName);
 //-----------------проверка входного файла-------------------------
    if(!inputFileName.endsWith(".txt")) // если расширение входного файла не .txt
    {
