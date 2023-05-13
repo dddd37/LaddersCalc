@@ -27,7 +27,10 @@ private slots:
     void sevCountOfCubes();
     void maxCountOfCubes();
     void nullCountOfCubes();
-
+    // Тесты функции outputIntValue
+    void outputNegative();
+    void outputNull();
+    void outputPositive();
 };
 
 Tests::Tests()
@@ -292,6 +295,46 @@ void Tests::nullCountOfCubes()
     int expCountOfLadders = 0;
     int actCountOfLadders = func.countOfLadders(-1,0);
     QCOMPARE(actCountOfLadders, expCountOfLadders);
+}
+
+//-----------------------------------------outputIntValue-----------------------------------------------
+void Tests::outputNegative()
+{
+    Functions func;
+    func.outputIntValue("C:/Qt/Projects/KNPO_42/kinpoTests/outputTest1.txt", -3);
+    QString expStr = "-3\n";
+    QFile outputFile("C:/Qt/Projects/KNPO_42/kinpoTests/outputTest1.txt");
+    outputFile.open(QIODevice::ReadOnly | QIODevice::Text);
+    QTextStream in(&outputFile);
+    in.setCodec("UTF-8");
+    QString actStr = in.readAll();
+    QCOMPARE(actStr, expStr);
+}
+
+void Tests::outputNull()
+{
+    Functions func;
+    func.outputIntValue("C:/Qt/Projects/KNPO_42/kinpoTests/outputTest2.txt", 0);
+    QString expStr = "0\n";
+    QFile outputFile("C:/Qt/Projects/KNPO_42/kinpoTests/outputTest2.txt");
+    outputFile.open(QIODevice::ReadOnly | QIODevice::Text);
+    QTextStream in(&outputFile);
+    in.setCodec("UTF-8");
+    QString actStr = in.readAll();
+    QCOMPARE(actStr, expStr);
+}
+
+void Tests::outputPositive()
+{
+    Functions func;
+    func.outputIntValue("C:/Qt/Projects/KNPO_42/kinpoTests/outputTest3.txt", 1111);
+    QString expStr = "1111\n";
+    QFile outputFile("C:/Qt/Projects/KNPO_42/kinpoTests/outputTest3.txt");
+    outputFile.open(QIODevice::ReadOnly | QIODevice::Text);
+    QTextStream in(&outputFile);
+    in.setCodec("UTF-8");
+    QString actStr = in.readAll();
+    QCOMPARE(actStr, expStr);
 }
 
 
