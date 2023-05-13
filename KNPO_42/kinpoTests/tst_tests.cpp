@@ -22,6 +22,11 @@ private slots:
     void inputValueInRangeOnlyAbs();
     void inputValueIsNotInRangeIsNull();
     void inputValueIsInRange();
+    // Тесты функции countOfLadders
+    void minCountOfCubes();
+    void sevCountOfCubes();
+    void maxCountOfCubes();
+    void nullCountOfCubes();
 
 };
 
@@ -255,6 +260,40 @@ void Tests::inputValueIsInRange()
     QString actError = in.readAll();
     QCOMPARE(actError, expError);
 }
+
+//-------------------------------------------countOfLadders-----------------------------------------------
+void Tests::minCountOfCubes()
+{
+    Functions func;
+    int expCountOfLadders = 1;
+    int actCountOfLadders = func.countOfLadders(2,1);
+    QCOMPARE(actCountOfLadders, expCountOfLadders);
+}
+
+void Tests::sevCountOfCubes()
+{
+    Functions func;
+    int expCountOfLadders = 4;
+    int actCountOfLadders = func.countOfLadders(7,6);
+    QCOMPARE(actCountOfLadders, expCountOfLadders);
+}
+
+void Tests::maxCountOfCubes()
+{
+    Functions func;
+    int expCountOfLadders = 444793;
+    int actCountOfLadders = func.countOfLadders(101,100);
+    QCOMPARE(actCountOfLadders, expCountOfLadders);
+}
+
+void Tests::nullCountOfCubes()
+{
+    Functions func;
+    int expCountOfLadders = 0;
+    int actCountOfLadders = func.countOfLadders(-1,0);
+    QCOMPARE(actCountOfLadders, expCountOfLadders);
+}
+
 
 QTEST_APPLESS_MAIN(Tests)
 
