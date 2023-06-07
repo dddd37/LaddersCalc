@@ -95,6 +95,8 @@ int Functions::countOfLadders(int prevStep, int cubeCount)
   int count = 0; // обнулить количество лесенок
   for (int level = 1; level < prevStep; ++level) // для каждой ступеньки лестницы, начиная со второй
   {
+    if ((cubeCount - level) < 0) // если оставшееся количество кубиков на ступеньке меньше нуля
+        break; // прервать цикл
     count += countOfLadders(level, cubeCount - level); // прибавить к количеству лесенок результат вызова функции подсчета лесенок
   }
 
