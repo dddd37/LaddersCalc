@@ -30,54 +30,51 @@ int Functions::unpackIntValue(QFile& input, QString outputFileName)
     QTextStream out(&output);
     out.setCodec("UTF-8");
     QString inputLine = in.readLine();
-    QString russianText = NULL;
-//-------------------------проверка содержания входного файла----------------------------
-    if (inputLine.isEmpty()) // если входной файл пустой
+
+    try
     {
-        // выдать ошибку в выходной файл
-        russianText = "Файл с входными данными является пустым!";
-        out << russianText;
-        output.close();
-        return NULL;
-    }
-    if(inputLine.size() > 3) // если строка длиннее 3ёх символов
-    {
-        // выдать ошибку в выходной файл
-        russianText = "Неверные входные данные! В строке не может быть больше трёх символов!";
-        out << russianText;
-        output.close();
-        return NULL;
-    }
-    bool areDigits = true; // посимвольная проверка строки на наличие недопустимых символов
-    for (const QChar& ch : inputLine) {
-            if (!ch.isDigit()) {
-                areDigits = false;
-            }
+    //-------------------------проверка содержания входного файла----------------------------
+        if (inputLine.isEmpty()) // если входной файл пустой
+        {
+            // выдать ошибку в выходной файл
+            throw QString("Файл с входными данными является пустым!");
         }
-    if(areDigits == false) // если строка содержит не только цифры
+        if(inputLine.size() > 3) // если строка длиннее 3ёх символов
+        {
+            // выдать ошибку в выходной файл
+            throw QString("Неверные входные данные! В строке не может быть больше трёх символов!");
+        }
+        bool areDigits = true; // посимвольная проверка строки на наличие недопустимых символов
+        for (const QChar& ch : inputLine) {
+                if (!ch.isDigit()) {
+                    areDigits = false;
+                }
+            }
+        if(areDigits == false) // если строка содержит не только цифры
+        {
+            // выдать ошибку в выходной файл
+            throw QString("Неверные входные данные! В строке не должно быть символов, не являющихся цифрами!");
+        }
+    //-----------------преобразование строки в значение int----------------
+        int value = inputLine.toInt();
+        if(value < 1 || value > 100) // если значение int не лежит в заданном диапазоне
+        {
+            // выдать ошибку в выходной файл
+            throw QString("Неверные входные данные! Число N не лежит в заданном диапазоне (1<=N<=100)");
+        }
+        else
+        {
+            // вернуть значение из файла
+            input.close();
+            return value;
+        }
+    }
+    catch (const QString& errorText)
     {
-        // выдать ошибку в выходной файл
-        russianText = "Неверные входные данные! В строке не должно быть символов, не являющихся цифрами!";
-        out << russianText;
+        // вывести исключение в выходной txt файл
+        out << errorText << flush;
         output.close();
         return NULL;
-    }
-//-----------------преобразование строки в значение int----------------
-    int value = inputLine.toInt();
-    if(value < 1 || value > 100) // если значение int не лежит в заданном диапазоне
-    {
-        // выдать ошибку в выходной файл
-        russianText = "Неверные входные данные! Число N не лежит в заданном диапазоне (1<=N<=100)";
-        out << russianText;
-        output.close();
-        input.close();
-        return NULL;
-    }
-    else
-    {
-        // вернуть значение из файла
-        input.close();
-        return value;
     }
 }
 
